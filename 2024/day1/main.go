@@ -3,7 +3,7 @@ package aoc
 import (
 	_ "embed"
 	"log"
-	"sort"
+	"slices"
 	"strconv"
 	"strings"
 )
@@ -11,7 +11,7 @@ import (
 //go:embed input.txt
 var input string
 
-func splitColumns(lines []string) (sort.IntSlice, sort.IntSlice) {
+func splitColumns(lines []string) ([]int, []int) {
     firstList := make([]int, len(lines)/2)
     secondList := make([]int, len(lines)/2)
     for _, line := range lines {
@@ -46,10 +46,9 @@ func Main() {
     lines := strings.Split(input, "\n")
     lines = lines[:len(lines)-1]
     firstList, secondList := splitColumns(lines)
-    sort.Sort(firstList)
-    sort.Sort(secondList)
+    slices.Sort(firstList)
+    slices.Sort(secondList)
 
-    //distances := make([]int, len(firstList))
     sum := 0
     for index, num := range firstList {
         diff := num - secondList[index]
