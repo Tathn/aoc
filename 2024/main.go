@@ -1,9 +1,10 @@
 package main
 
 import (
-    day1 "github.com/Tathn/aoc/day1"
+//    day1 "github.com/Tathn/aoc/day1"
+    day2 "github.com/Tathn/aoc/day2"
 )
 
 func main() {
-    day1.Main()
+    day2.Main()
 }
