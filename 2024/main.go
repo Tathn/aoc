@@ -1,7 +1,7 @@
 package main
 
 import (
-    currentDay "github.com/Tathn/aoc/day6"
+    currentDay "github.com/Tathn/aoc/day7"
 )
 
 func main() {
