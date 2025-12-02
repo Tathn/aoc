@@ -10,7 +10,7 @@ import (
 
 func main() {
 	fmt.Println("D1")
-	content, err := os.ReadFile("input.txt")
+	content, err := os.ReadFile("input_test.txt")
 	if err != nil {
 		fmt.Println("File read failed")
 		return
