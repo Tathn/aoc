@@ -4,14 +4,14 @@ import (
 	"bytes"
 	"log"
 	"os"
+	"slices"
 )
 
-func main() {
-	content, err := os.ReadFile("input.txt")
-	if err != nil {
-		log.Panicln("Could not read input")
-	}
-	papers := bytes.Split(bytes.TrimSpace(content), []byte{'\n'})
+func p1(papers [][]byte) int {
+	return getAccessiblePapers(papers, false)
+}
+
+func getAccessiblePapers(papers [][]byte, remove bool) int {
 	forkliftAccesableCount := 0
 	for y, row := range papers {
 		for x, paper := range row {
@@ -50,10 +50,39 @@ func main() {
 
 				if adjacentCount < 4 {
 					forkliftAccesableCount++
+					if remove {
+						papers[y][x] = '.'
+					}
 				}
 			}
 		}
 	}
+	return forkliftAccesableCount
+}
 
-	log.Println("forkliftAccesableCount", forkliftAccesableCount)
+func p2(papers [][]byte) int {
+	removedPapersCount := 0
+	lastRoundRemovedPapers := -1
+	for lastRoundRemovedPapers != 0 {
+		lastRoundRemovedPapers = getAccessiblePapers(papers, true)
+		removedPapersCount += lastRoundRemovedPapers
+	}
+
+	return removedPapersCount
+}
+
+func main() {
+	content, err := os.ReadFile("input.txt")
+	if err != nil {
+		log.Panicln("Could not read input")
+	}
+	papers := bytes.Split(bytes.TrimSpace(content), []byte{'\n'})
+
+	paperscpy := make([][]byte, len(papers))
+	for idx, row := range papers {
+		paperscpy[idx] = slices.Clone(row)
+	}
+
+	log.Println("forkliftAccesableCount", p1(paperscpy))
+	log.Println("removedPapers", p2(papers))
 }
